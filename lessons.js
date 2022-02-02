@@ -145,10 +145,12 @@ class CalendarEvent {
 	 * @param {Time} minTime 
 	 * @param {Time} maxTime 
 	 */
-	static get(calendarId = "primary", minTime, maxTime) {
+	static get(calendarId = "primary", minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate(), maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate()) {
 		var url = new URL("https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events");
 		var headers = new Headers();
-		headers.append("timeMin", );
+		
+		headers.append("timeMin", minTime);
+		headers.append("timeMax", maxTime);
 
 		fetch(url, { method: "GET", headers })
 			.then(res => res.json())

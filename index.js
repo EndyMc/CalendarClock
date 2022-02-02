@@ -5,7 +5,7 @@ function handleClientLoad() {
 function initClient() {
 	// Client ID and API key from the Developer Console
 	var CLIENT_ID = '967759234224-l9a4t1miivg1acl993a8curb8er9uj45.apps.googleusercontent.com';
-	var API_KEY = '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';
+	var API_KEY = 'AIzaSyARog187NEwKAzOEA-Bq-J6_HI2dI5fbTU';
 
 	// Array of API discovery doc URLs for APIs used by the quickstart
 	var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];

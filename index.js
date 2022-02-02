@@ -24,12 +24,16 @@ function initClient() {
 		gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
 		// Handle the initial sign-in state.
-		if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-			CalendarEvent.update();
-		} else {
-			gapi.auth2.getAuthInstance().signIn();
-		}
-	  }, console.error);
+		updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+	}, console.error);
+}
+
+function updateSigninStatus(isSignedIn) {
+	if (isSignedIn) {
+		CalendarEvent.update();
+	} else {
+		gapi.auth2.getAuthInstance().signIn();
+	}
 }
 
 function init() {

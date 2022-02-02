@@ -1,0 +1,36 @@
+body {
+	/* Defaults */
+	padding: 0;
+	margin: 0;
+	border: 0;
+	
+	background-color: black;
+	
+	/* Text */
+	color: white;
+	
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	
+	width: 100vw;
+	height: 100vh;
+	
+	cursor: none;
+}
+
+#lesson {
+	font-weight: 200;
+	font-size: 5vw;
+}
+
+#clock-top {
+	position: relative;
+	top: 0px;
+}
+
+#clock {
+	font-weight: 500;
+	font-size: 15vw;
+}

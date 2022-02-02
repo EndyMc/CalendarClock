@@ -146,7 +146,14 @@ class CalendarEvent {
 	 * @param {Time} maxTime 
 	 */
 	static get(calendarId = "primary", minTime, maxTime) {
+		var url = new URL("https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events");
+		var headers = new Headers();
+		headers.append("timeMin", );
 
+		fetch(url, { method: "GET", headers })
+			.then(res => res.json())
+			.then(console.log)
+			.catch(console.error)
 	}
 }
 
@@ -162,16 +169,18 @@ class Time {
 	 * @param {string} timezone 
 	 */
 	constructor(year, month, day, hour, minute, second) {
-		this.year = year;
-		this.month = month;
-		this.day = day;
-		this.hour = hour;
-		this.minute = minute;
-		this.second = second;
+		var d = new Date();
+
+		this.year = year == undefined ? d.getFullYear() : year;
+		this.month = month == undefined ? d.getMonth() + 1 : month;
+		this.day = day == undefined ? d.getDate() : day;
+		this.hour = hour == undefined ? d.getHours() : hour;
+		this.minute = minute == undefined ? d.getMinutes() : minute;
+		this.second = second == undefined ? d.getSeconds() : second;
 		
 		this.date = new Date(this.year, this.month - 1, this.day, this.hour, this.minute, this.second);
 		
-		this.timezone = this.date.getTimezoneOffset / -60;
+		this.timezone = this.date.getTimezoneOffset() / -60;
 	}
 	
 	getDate() {
@@ -179,7 +188,7 @@ class Time {
 	}
 	
 	getTimezone() {
-		return (this.timezone >= 0 ? "+" : "-") + addPadding(String(this.timezone), 2) + ":00";
+		return (this.timezone >= 0 ? "+" : "-") + addPadding(this.timezone, 2) + ":00";
 	}
 	
 	getRFCDate() {

@@ -3,6 +3,17 @@ function handleClientLoad() {
 }
 
 function initClient() {
+	// Client ID and API key from the Developer Console
+	var CLIENT_ID = '967759234224-l9a4t1miivg1acl993a8curb8er9uj45.apps.googleusercontent.com';
+	var API_KEY = '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';
+
+	// Array of API discovery doc URLs for APIs used by the quickstart
+	var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+	// Authorization scopes required by the API; multiple scopes can be
+	// included, separated by spaces.
+	var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
 	gapi.client.init({
 		apiKey: API_KEY,
 		clientId: CLIENT_ID,

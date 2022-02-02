@@ -1,11 +1,33 @@
+function handleClientLoad() {
+	gapi.load("client:auth2", initClient);
+}
+
+function initClient() {
+	gapi.client.init({
+		apiKey: API_KEY,
+		clientId: CLIENT_ID,
+		discoveryDocs: DISCOVERY_DOCS,
+		scope: SCOPES
+	  }).then(() => {
+		// Listen for sign-in state changes.
+		gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+		// Handle the initial sign-in state.
+		if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+			
+		} else {
+			gapi.auth2.getAuthInstance().signIn();
+		}
+	  }, console.error);
+}
+
 function init() {
-	createLessons();
 	render();
 }
 
 function render() {
 	renderClock();
-	renderLesson();
+	renderEvent();
 
 	setTimeout(render, new Date().getTime() % 1000);
 }
@@ -26,8 +48,11 @@ function addPadding(text, maxlength) {
 	return text;
 }
 
+function renderEvent() {
 
-function renderLesson() {
+}
+
+/*function renderLesson() {
 	var lesson = lessons.getCurrentLesson();
 	var lessonC = document.getElementById('lesson');
 	
@@ -53,4 +78,4 @@ function renderLesson() {
 		
 		lessonC.innerHTML = "Nuvarande lektion: <span style='color: " + typeColor + ";'>" + lesson.type + "</span> (<span style='color: " + startColor + ";'>" + addPadding(lesson.startTime.getHours(), 2) + "<span style='color: white;'>:</span>" + addPadding(lesson.startTime.getMinutes(), 2) + "</span> - <span style='color: " + endColor + ";'>" + addPadding(lesson.endTime.getHours(), 2) + "<span style='color: white;'>:</span>" + addPadding(lesson.endTime.getMinutes(), 2) + "</span>)<br> Plats: (<span style='color: " + placeColor + ";'>" + lesson.place + "</span>)";
 	}
-}
+}*/

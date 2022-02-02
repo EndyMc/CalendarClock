@@ -146,16 +146,7 @@ class CalendarEvent {
 	 * @param {Time} maxTime 
 	 */
 	static get(calendarId = "primary", minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate(), maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate()) {
-		var url = new URL("https://www.googleapis.com/calendar/v3/calendars/" + calendarId + "/events");
-		var headers = new Headers();
 		
-		headers.append("timeMin", minTime);
-		headers.append("timeMax", maxTime);
-
-		fetch(url, { method: "GET", headers })
-			.then(res => res.json())
-			.then(console.log)
-			.catch(console.error)
 	}
 }
 
@@ -197,5 +188,3 @@ class Time {
 		return this.year + "-" + addPadding(this.month, 2) + "-" + addPadding(this.day, 2) + "T" + addPadding(this.hour, 2) + ":" + addPadding(this.minute, 2) + ":" + addPadding(this.second, 2) + this.getTimezone();
 	}
 }
-
-console.log(new Time(2022, 2, 2, 0, 0, 0).getRFCDate());

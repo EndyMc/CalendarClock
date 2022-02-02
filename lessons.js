@@ -1,4 +1,4 @@
-class Lesson {
+/*class Lesson {
 	constructor(startTime, endTime, type, place) {
 		var d = new Date();
 
@@ -136,4 +136,55 @@ function createLessons() {
 	]
 	
 	return (lessons = new Lessons(monday, tuesday, wednesday, thursday, friday));
+}*/
+
+class CalendarEvent {
+	/**
+	 * 
+	 * @param {string} calendarId 
+	 * @param {Time} minTime 
+	 * @param {Time} maxTime 
+	 */
+	static get(calendarId = "primary", minTime, maxTime) {
+
+	}
 }
+
+class Time {
+	/**
+	 * 
+	 * @param {number} year 
+	 * @param {number} month 
+	 * @param {number} day 
+	 * @param {number} hour 
+	 * @param {number} minute 
+	 * @param {number} second 
+	 * @param {string} timezone 
+	 */
+	constructor(year, month, day, hour, minute, second) {
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.minute = minute;
+		this.second = second;
+		
+		this.date = new Date(this.year, this.month - 1, this.day, this.hour, this.minute, this.second);
+		
+		this.timezone = this.date.getTimezoneOffset / -60;
+	}
+	
+	getDate() {
+		return this.date;
+	}
+	
+	getTimezone() {
+		return (this.timezone >= 0 ? "+" : "-") + addPadding(String(this.timezone), 2) + ":00";
+	}
+	
+	getRFCDate() {
+		return this.year + "-" + addPadding(this.month, 2) + "-" + addPadding(this.day, 2) + "T" + addPadding(this.hour, 2) + ":" + addPadding(this.minute, 2) + ":" + addPadding(this.second, 2) + this.getTimezone();
+	}
+}
+
+console.log(new Time(2022, 2, 2, 0, 0, 0).getRFCDate());

@@ -14,7 +14,7 @@ function initClient() {
 
 		// Handle the initial sign-in state.
 		if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-			
+			CalendarEvent.update();
 		} else {
 			gapi.auth2.getAuthInstance().signIn();
 		}

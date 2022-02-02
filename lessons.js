@@ -139,14 +139,12 @@ function createLessons() {
 }*/
 
 class CalendarEvent {
-	/**
-	 * 
-	 * @param {string} calendarId 
-	 * @param {Time} minTime 
-	 * @param {Time} maxTime 
-	 */
-	static get(calendarId = "primary", minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate(), maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate()) {
-		
+	static update() {
+		var calendarId = "primary";
+		var minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate();
+		var maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate();
+
+		console.debug("Updated calendar-events");
 	}
 }
 

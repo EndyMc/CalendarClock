@@ -138,11 +138,23 @@ function createLessons() {
 	return (lessons = new Lessons(monday, tuesday, wednesday, thursday, friday));
 }*/
 
-class CalendarEvent {
+class Calendar {
+	static events = [];
+
 	static update() {
-		var calendarId = "primary";
 		var minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate();
 		var maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate();
+
+		gapi.client.calendar.events.list({
+			'calendarId': "primary",
+			'timeMin': minTime,
+			'timeMax': maxTime
+		}).then((res) => {
+			var events = res.result.items;
+
+			events.sort((e1, e2) => (e1.start.date == undefined ? e1.start.dateTime : e1.start.date) - (e2.start.date == undefined ? e2.start.dateTime : e2.start.date)); // Need time as a numberical number, not RCF dateL.
+			Calendar.events.push(...events);
+		});
 
 		console.debug("Updated calendar-events");
 	}
@@ -183,6 +195,6 @@ class Time {
 	}
 	
 	getRFCDate() {
-		return this.year + "-" + addPadding(this.month, 2) + "-" + addPadding(this.day, 2) + "T" + addPadding(this.hour, 2) + ":" + addPadding(this.minute, 2) + ":" + addPadding(this.second, 2) + this.getTimezone();
+		return this.date.toISOString(); //this.year + "-" + addPadding(this.month, 2) + "-" + addPadding(this.day, 2) + "T" + addPadding(this.hour, 2) + ":" + addPadding(this.minute, 2) + ":" + addPadding(this.second, 2) + this.getTimezone();
 	}
 }

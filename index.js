@@ -30,7 +30,7 @@ function initClient() {
 
 function updateSigninStatus(isSignedIn) {
 	if (isSignedIn) {
-		CalendarEvent.update();
+		Calendar.update();
 	} else {
 		gapi.auth2.getAuthInstance().signIn();
 	}

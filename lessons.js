@@ -151,12 +151,20 @@ class Calendar {
 			'timeMax': maxTime
 		}).then((res) => {
 			var events = res.result.items;
+			var ids = {};
 
-			events.sort((e1, e2) => (e1.start.date == undefined ? e1.start.dateTime : e1.start.date) - (e2.start.date == undefined ? e2.start.dateTime : e2.start.date)); // Need time as a numberical number, not RCF dateL.
+			// Add the fetched events to the events-list
 			Calendar.events.push(...events);
+
+			// Remove all duplicate events
+			Calendar.events.filter(obj => { isSingleton = ids[obj.id] == undefined;  ids[obj.id] = true; return isSingleton; });
+
+			// Sort the events according to time (earliest first)
+			Calendar.events.sort((e1, e2) => (e1.start.date == undefined ? e1.start.dateTime : e1.start.date) - (e2.start.date == undefined ? e2.start.dateTime : e2.start.date));
 		});
 
 		console.debug("Updated calendar-events");
+		console.debug(Calendar.events);
 	}
 }
 

@@ -206,7 +206,7 @@ class Time {
 
 	/**
 	 * 
-	 * @param {string} rfcDate A string with the RFC3339 format (e.g. 2022-02-04T20:46:48.718)
+	 * @param {string} rfcDate A string with the RFC3339 format (e.g. 2022-02-04T06:30:00+01:00)
 	 */
 	static fromRFCDate(rfcDate) {
 		var t = new Time();
@@ -217,7 +217,7 @@ class Time {
 		t.date.setUTCHours(Number(rfcDate.substring(11, 13)));
 		t.date.setUTCMinutes(Number(rfcDate.substring(14, 16)));
 		t.date.setUTCSeconds(Number(rfcDate.substring(17, 19)));
-		t.date.setUTCMilliseconds(Number(rfcDate.substring(20, 23)));
+		t.date.setUTCMilliseconds(Number(rfcDate.substring(20, 22)));
 
 		return t;
 	}

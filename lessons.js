@@ -156,13 +156,13 @@ class Calendar {
 			// Add the fetched events to the events-list
 			Calendar.events.push(...events);
 
-			// Remove all duplicate events
+			// Remove all duplicate and/or expired events
 			Calendar.events = Calendar.events.filter(obj => { var isSingleton = ids[obj.id] == undefined;  ids[obj.id] = true; return isSingleton; });
 
 			// Sort the events according to time (earliest first)
 			Calendar.events.sort((e1, e2) => (e1.start.date == undefined ? e1.start.dateTime : e1.start.date) - (e2.start.date == undefined ? e2.start.dateTime : e2.start.date));
 
-			// Debug
+			// Logging
 			console.debug("Updated calendar-events");
 			console.debug(Calendar.events);
 		});
@@ -194,6 +194,24 @@ class Time {
 		this.date = new Date(this.year, this.month - 1, this.day, this.hour, this.minute, this.second);
 		
 		this.timezone = this.date.getTimezoneOffset() / -60;
+	}
+
+	/**
+	 * 
+	 * @param {string} rfcDate A string with the RFC3339 format (e.g. 2022-02-04T20:46:48.718)
+	 */
+	static fromRFCDate(rfcDate) {
+		var t = new Time();
+
+		t.date.setUTCFullYear(Number(rfcDate.substring(0, 4)));
+		t.date.setUTCMonth(Number(rfcDate.substring(5, 7)) - 1);
+		t.date.setUTCDate(Number(rfcDate.substring(8, 10)));
+		t.date.setUTCHours(Number(rfcDate.substring(11, 13)));
+		t.date.setUTCMinutes(Number(rfcDate.substring(14, 16)));
+		t.date.setUTCSeconds(Number(rfcDate.substring(17, 19)));
+		t.date.setUTCMilliseconds(Number(rfcDate.substring(20, 23)));
+
+		return t;
 	}
 	
 	getDate() {

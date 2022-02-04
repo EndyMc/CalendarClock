@@ -64,7 +64,8 @@ function addPadding(text, maxlength) {
 }
 
 function renderEvent() {
-
+	var d = new Date();
+	document.title = "Clock: " + addPadding(d.getHours(), 2) + ":" + addPadding(d.getMinutes(), 2);
 }
 
 /*function renderLesson() {

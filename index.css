@@ -20,8 +20,18 @@ body {
 	cursor: none;
 }
 
-#lesson {
-	font-weight: 200;
+#calendar-event-top {
+	position: absolute;
+
+	width: 50%;
+
+	left: calc((100vw - 50%) / 2);
+
+	border-radius: 1vmax;
+	border: 1px solid white;
+}
+
+#calendar-event {
 	font-size: 5vw;
 }
 

@@ -25,7 +25,10 @@ function initClient() {
 
 		// Handle the initial sign-in state.
 		updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-	}, console.error);
+
+		// Start the calendar-updater
+		updateCalendarEvents();
+	}).catch(console.error);
 }
 
 function updateSigninStatus(isSignedIn) {
@@ -40,11 +43,27 @@ function init() {
 	render();
 }
 
+function updateCalendarEvents() {
+	// 1 hour in milliseconds
+	var updateRate = 1e3 * 60 * 60;
+
+	// Fetch calendar events
+	Calendar.update();
+
+	// Wait until the next hour. Then re-fetch.
+	setTimeout(updateCalendarEvents, updateRate - (new Date().getTime() % updateRate));
+}
+
 function render() {
+	// 1 second in milliseconds
+	var updateRate = 1e3;
+
+	// Render
 	renderClock();
 	renderEvent();
 
-	setTimeout(render, new Date().getTime() % 1000);
+	// Wait until the next second. Then re-render.
+	setTimeout(render, updateRate - (new Date().getTime() % updateRate));
 }
 
 function renderClock() {
@@ -55,7 +74,10 @@ function renderClock() {
 }	
 
 function addPadding(text, maxlength) {
+	// Make the given text to a string (could be given a number or other non-string element)
 	text = String(text);
+
+	// Prepend a "0" to the given text until it's the wanted length.
 	while (text.length < maxlength) {
 		text = "0" + text;
 	}
@@ -65,7 +87,18 @@ function addPadding(text, maxlength) {
 
 function renderEvent() {
 	var d = new Date();
+	var calendarEventClock = document.getElementById('calendar-event');
+
 	document.title = "Clock: " + addPadding(d.getHours(), 2) + ":" + addPadding(d.getMinutes(), 2);
+
+	try {
+		var event = Calendar.getCurrentEvent();
+
+		calendarEventClock.innerHTML = "<span>" + event.getName() + "</span><br><span>" + event.getStartTimeAsText() + "</span> - <span>" + event.getEndTimeAsText() + "</span><br><span>" + event.getTimeAsText() + "</span>";
+
+	} catch(err) {
+		calendarEventClock.innerHTML = "There are no more scheduled events for today";
+	}
 }
 
 /*function renderLesson() {

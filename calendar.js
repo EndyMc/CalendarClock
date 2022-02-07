@@ -1,150 +1,13 @@
-/*class Lesson {
-	constructor(startTime, endTime, type, place) {
-		var d = new Date();
-
-		this.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), Number(startTime.split(":")[0]), Number(startTime.split(":")[1]), 0, 1);
-		this.endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), Number(endTime.split(":")[0]), Number(endTime.split(":")[1]), 0, 1);
-		this.duration = (this.endTime.getHours() * 60 + this.endTime.getMinutes()) - (this.startTime.getHours() * 60 + this.startTime.getMinutes());
-		
-		this.type = type;
-		this.place = place;
-	}
-}
-
-class Lessons {
-	constructor(monday, tuesday, wednesday, thursday, friday) {
-		this.monday = monday;
-		this.tuesday = tuesday;
-		this.wednesday = wednesday;
-		this.thursday = thursday;
-		this.friday = friday;
-
-		this.all = [monday, tuesday, wednesday, thursday, friday];
-	}
-	
-	getCurrentLesson() {
-		var cur = this.getCurrentDay();
-		var i = String(this.getCurrentLessonIndex());
-		if (i == undefined || cur == undefined) return undefined;
-
-		if (i.includes(",")) {
-			return new Lesson(cur[Number(i.split(", ")[0])].endTime.getHours() + ":" + cur[Number(i.split(", ")[0])].endTime.getMinutes(), cur[Number(i.split(", ")[1])].startTime.getHours() + ":" + cur[Number(i.split(", ")[1])].startTime.getMinutes(), "Rast");
-		}
-		
-		return cur[i];
-	}
-	
-	getCurrentLessonIndex() {
-		var cur = this.getCurrentDay();
-		var d = new Date();
-		if (d.getDay() == 0 || d.getDay() == 6) return undefined;
-
-		for (var i = 0; i < cur.length; i++) {
-			if (cur[i].startTime.getTime() <= d.getTime() && cur[i].endTime.getTime() >= d.getTime()) {
-				return i;
-			} else if (i >= 1 && (cur[i].startTime.getTime() > d.getTime() && cur[i - 1].endTime.getTime() < d.getTime())) {
-				return (i - 1) + ", " + i;
-			}
-
-		}
-		
-		return undefined;
-	
-	}
-	
-	getNextLesson() {
-		var i = String(this.getCurrentLessonIndex());
-		return this.getCurrentDay()[i.includes(",") ? Number(i.split(", ")[1]) : Number(i) + 1];
-	}
-	
-	getCurrentDay() {
-		return this.all[new Date().getDay() - 1];
-	}
-
-	getAllDays() {
-		return this.all;
-	}
-	
-	getDay(day) {
-		switch(day) {
-			case "monday":
-				return this.monday;
-			case "tuesday":
-				return this.tuesday;
-			case "wednesday":
-				return this.wednesday;
-			case "thursday":
-				return this.thursday;
-			case "friday":
-				return this.friday;
-			default:
-				return undefined;
-		}
-	}
-}
-
-var lessons;
-function createLessons() {
-	var monday = [
-		new Lesson("09:00", "09:30", "Mentorstid", 1034),
-		new Lesson("09:35", "10:20", "Matematik", 1034),
-		new Lesson("10:30", "11:10", "Tyska", 1042),
-		new Lesson("11:25", "12:20", "Engelska", 1034),
-		new Lesson("12:25", "12:45", "Lunch", "Matsalen"),
-		new Lesson("13:00", "13:50", "SO", 1034),
-		new Lesson("14:15", "15:15", "Idrott", "Sl&auml;tt&auml;ngshallen")
-	]
-
-	var tuesday = [
-		new Lesson("08:00", "09:00", "Matematik", 1034),
-		new Lesson("09:10", "10:05", "Svenska", 1034),
-		new Lesson("10:15", "11:20", "NO", 1034),
-		new Lesson("11:25", "11:45", "Lunch", "Matsalen"),
-		new Lesson("12:20", "13:25", "SO", 1034),
-		new Lesson("13:55", "14:40", "Idrott", "Vinstorpshallen")
-	]
-	
-	var wednesday = [
-		new Lesson("08:00", "08:50", "Tyska", 1042),
-		new Lesson("09:00", "09:50", "Matematik", 1034),
-		new Lesson("10:00", "11:15", "Sl&ouml;jd", 1071),
-		new Lesson("11:35", "11:55", "Lunch", "Matsalen"),
-		new Lesson("12:15", "13:10", "Svenska", 1034),
-		new Lesson("13:20", "14:10", "Teknik", 1032),
-		new Lesson("14:10", "14:50", "NO", 1032)
-	]
-	
-	var thursday = [
-		new Lesson("08:00", "08:45", "NO", 1032),
-		new Lesson("09:10", "10:05", "Idrott", "Vinstorpshallen"),
-		new Lesson("11:15", "12:15", "NO-Lab", 1032),
-		new Lesson("10:30", "12:10", "Hkk", 1102),
-		new Lesson("12:25", "12:45", "Lunch", "Matsalen"),
-		new Lesson("12:50", "13:30", "Matematik", 1034),
-		new Lesson("13:40", "14:40", "Tyska", 1042),
-		new Lesson("14:50", "15:35", "SO", 1034)
-	]
-	
-	var friday = [
-		new Lesson("08:00", "09:30", "Musik", 1067),
-		new Lesson("09:40", "10:40", "Svenska", 1034),
-		new Lesson("10:50", "11:45", "Engelska", 1034),
-		new Lesson("11:50", "12:10", "Lunch", "Matsalen"),
-		new Lesson("12:20", "12:50", "Matematik", 1034),
-		new Lesson("13:05", "13:55", "SO", 1034),
-		new Lesson("14:05", "15:05", "Bild", 1061)
-	]
-	
-	return (lessons = new Lessons(monday, tuesday, wednesday, thursday, friday));
-}*/
-
 class Calendar {
 	static events = [];
 
 	static update() {
+		// This day, at 00:00.
 		var minTime = new Time(undefined, undefined, undefined, 0, 0, 0).getRFCDate();
+		// This day, at 23:59.
 		var maxTime = new Time(undefined, undefined, undefined, 23, 59, 59).getRFCDate();
 
+		// Fetch the events that happen this day.
 		gapi.client.calendar.events.list({
 			'calendarId': "primary",
 			'timeMin': minTime,
@@ -154,40 +17,111 @@ class Calendar {
 			var date = new Date();
 			var ids = {};
 
-			// Add the fetched events to the events-list
-			Calendar.events.push(...events);
+			// Save the start and end-time for the event for easier comparasion
+			events.forEach(ev => { 
+				var start = Time.fromRFCDate(ev.start.date == undefined ? ev.start.dateTime : ev.start.date).getDate().getTime();
+				var end = Time.fromRFCDate(ev.end.date == undefined ? ev.end.dateTime : ev.end.date).getDate().getTime();
+
+				Calendar.events.push(new CalendarEvent(ev.summary, ev.id, start, end));
+			});
+
+			// Sort the events according to time (earliest first)
+			Calendar.events.sort((ev1, ev2) => ev1.getStartTime() - ev2.getStartTime());
 
 			// Remove all duplicate and/or expired events
 			Calendar.events = Calendar.events.filter(obj => { 
 				var isSingleton = ids[obj.id] == undefined;
-				var hasExpired = Time.fromRFCDate((obj.end.date == undefined ? obj.end.dateTime : obj.end.date)).getDate().getTime() <= date.getTime();
-				
+				var isFullDayEvent = obj.getEndTime() - obj.getStartTime() == 1000 * 60 * 60 * 24;
+				var hasExpired = obj.getEndTime() <= date.getTime();
+
 				ids[obj.id] = true;
 				
-				return isSingleton && !hasExpired;
+				return isSingleton && !hasExpired && !isFullDayEvent;
 			});
 
-			// Sort the events according to time (earliest first)
-			Calendar.events.sort((e1, e2) => (e1.start.date == undefined ? e1.start.dateTime : e1.start.date) - (e2.start.date == undefined ? e2.start.dateTime : e2.start.date));
-			
 			// Logging
 			console.debug("Updated calendar-events");
 			console.debug(Calendar.events);
 		});
+	}
 
+	static getCurrentEvent() {
+		if (Calendar.events.length > 0) {
+			return Calendar.events[0];
+		} else {
+			throw new Error("There are no more scheduled events for today");
+		}
+	}
+}
+
+class CalendarEvent {
+	/**
+	 * 
+	 * @param {string} name The name to be displayed
+	 * @param {string} id The id given by Google
+	 * @param {number} start The starttime in unix format
+	 * @param {number} end The endtime in unix format
+	 */
+	constructor(name, id, start, end) {
+		this.name = name;
+		this.id = id;
+
+		this.start = start;
+		this.end = end;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	getId() {
+		return this.id;
+	}
+
+	getStartTime() {
+		return this.start;
+	}
+
+	getStartTimeAsText() {
+		var d = new Date(this.getStartTime() + (new Date().getTimezoneOffset() * 1000 * 60));
+
+		return addPadding(d.getHours(), 2) + ":" + addPadding(d.getMinutes(), 2);
+	}
+
+	getEndTime() {
+		return this.end;
+	}
+
+	getEndTimeAsText() {
+		var d = new Date(this.getEndTime() + (new Date().getTimezoneOffset() * 1000 * 60));
+
+		return addPadding(d.getHours(), 2) + ":" + addPadding(d.getMinutes(), 2);
+	}
+
+	getTimeAsText() {
+		var timeUntilStart = this.getStartTime() - new Date().getTime() + (new Date().getTimezoneOffset() * 1000 * 60);
+		var timeUntilEnd = this.getEndTime() - new Date().getTime() + (new Date().getTimezoneOffset() * 1000 * 60);
+
+		if (timeUntilStart >= 0) {
+			return ((Math.floor(timeUntilStart / (1000 * 60 * 60)) > 0 ? Math.floor(timeUntilStart / (1000 * 60 * 60)) + " hour(s)" : Math.floor(timeUntilStart / (1000 * 60)) % 60 > 0 ? Math.floor(timeUntilStart / (1000 * 60)) % 60 + " minute(s)" : Math.floor(timeUntilStart / 1000) % 60 + " second(s)") + " until start");
+		} else if (timeUntilEnd >= 0) {
+			return ((Math.floor(timeUntilEnd / (1000 * 60 * 60)) > 0 ? Math.floor(timeUntilEnd / (1000 * 60 * 60)) + " hour(s)" : Math.floor(timeUntilEnd / (1000 * 60)) % 60 > 0 ? Math.floor(timeUntilEnd / (1000 * 60)) % 60 + " minute(s)" : Math.floor(timeUntilEnd / 1000) % 60 + " second(s)") +  " left");
+		} else {
+			throw Error("There are no more scheduled events for today");
+		}
 	}
 }
 
 class Time {
 	/**
 	 * 
-	 * @param {number} year 
-	 * @param {number} month 
-	 * @param {number} day 
-	 * @param {number} hour 
-	 * @param {number} minute 
-	 * @param {number} second 
-	 * @param {string} timezone 
+	 * @param {number} year The Year
+	 * @param {number} month The Month
+	 * @param {number} day The Day of the Month
+	 * @param {number} hour The Hour (in military time, e.g. 22:00)
+	 * @param {number} minute The Minute
+	 * @param {number} second The Second
+	 * @param {string} timezone The Timezone (e.g. +01:00)
 	 */
 	constructor(year, month, day, hour, minute, second) {
 		var d = new Date();
